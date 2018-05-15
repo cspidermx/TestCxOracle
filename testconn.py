@@ -1,15 +1,29 @@
 import cx_Oracle
 from config import EmConfig
 import imaplib
+import sys
 
 
-def testDBconn():
+def cleanDB(conn):
+    cur = conn.cursor()
+    cur.execute('delete from email')
+    cur.execute('delete from email_to')
+    cur.execute('delete from email_from')
+    cur.execute('delete from alerta')
+    conn.commit()
+    cur.close
+
+
+def testDBconn(clean):
     if str.find(EmConfig.CXORACLE_URI, 'URL-de-la-base') == -1:
         try:
             con = cx_Oracle.connect(EmConfig.CXORACLE_URI)
             print('Versión de la Base de Datos: ', con.version)
             print('SQLAlchemy: ', EmConfig.SQLALCHEMY_DATABASE_URI)
             print('Cx_Oracle: ', EmConfig.CXORACLE_URI)
+            # if clean:
+                # cleanDB(con)
+                # print('Se limpiaron los datos existentes.')
             con.close()
         except cx_Oracle.DatabaseError:
             print(cx_Oracle.DatabaseError)
@@ -36,5 +50,9 @@ def testEMAILconn():
 
 
 if __name__ == '__main__':
-    testDBconn()
+    arg = False
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'clean':
+            arg = True
+    testDBconn(arg)
     testEMAILconn()
