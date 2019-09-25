@@ -99,3 +99,4 @@ ENV/
 .mypy_cache/
 .idea/
 vars.py
+.idea/workspace.xml

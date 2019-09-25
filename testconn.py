@@ -35,7 +35,7 @@ def testDBconn(clean):
             con.close()
         except cx_Oracle.DatabaseError as abc:
             print(abc)
-            print('Credenciales: ', EmConfig.CXORACLE_URI)
+            print('Credenciales: ', conURI)
     else:
         print('ERROR: Las credenciales de DB no se encontraron')
         print('Credenciales: ', EmConfig.CXORACLE_URI)
