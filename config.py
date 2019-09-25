@@ -1,6 +1,8 @@
 import cx_Oracle
 import vars
 
+conURI = vars.conURI
+
 
 def buildconnstring():
     DBCRED = {'dburl': vars.DB_URL or 'URL-de-la-base',
