@@ -28,14 +28,15 @@ def testDBconn(clean):
         except cx_Oracle.DatabaseError as abc:
             print(abc)
             print('Credenciales: ', EmConfig.CXORACLE_URI)
-        try:
-            con = cx_Oracle.connect(conURI)
-            print('Versión de la Base de Datos: ', con.version)
-            print('Cx_Oracle: ', conURI)
-            con.close()
-        except cx_Oracle.DatabaseError as abc:
-            print(abc)
-            print('Credenciales: ', conURI)
+        if conURI != '':
+            try:
+                con = cx_Oracle.connect(conURI)
+                print('Versión de la Base de Datos: ', con.version)
+                print('Cx_Oracle: ', conURI)
+                con.close()
+            except cx_Oracle.DatabaseError as abc:
+                print(abc)
+                print('Credenciales: ', conURI)
     else:
         print('ERROR: Las credenciales de DB no se encontraron')
         print('Credenciales: ', EmConfig.CXORACLE_URI)
